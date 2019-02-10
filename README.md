@@ -1,29 +1,21 @@
-# OpenWrt luci feed
+# Freifunk feed for OpenWrt
 
 ## Description
 
-This is the OpenWrt "luci"-feed containing LuCI - OpenWrt Configuration Interface.
+This feeds contains the OpenWrt packages for Freifunk. In February 2019 this feed was created by moving these packages out of the OpenWrt "luci"-feed.
 
 ## Usage
 
-This feed is enabled by default. Your feeds.conf.default (or feeds.conf) should contain a line like:
+To enable this feed add the following line to your feeds.conf:
 ```
-src-git luci https://github.com/openwrt/luci.git
+src-git freifunk https://github.com/freifunk/openwrt-packages.git
 ```
 
 To install all its package definitions, run:
 ```
-./scripts/feeds update luci
-./scripts/feeds install -a -p luci
+./scripts/feeds update freifunk
+./scripts/feeds install -a -p freifunk
 ```
-
-## API Reference
-
-You can browse the generated API documentation [directly on Github](http://htmlpreview.github.io/?http://raw.githubusercontent.com/openwrt/luci/master/documentation/api/index.html).
-
-## Development
-
-Documentation for developing and extending LuCI can be found [in the Wiki](https://github.com/openwrt/luci/wiki)
 
 ## License
 
