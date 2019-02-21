@@ -4,6 +4,13 @@
 # This is free software, licensed under the Apache License, Version 2.0 .
 #
 
+FF_PKGNAME?=$(notdir ${CURDIR})
+
+PKG_NAME?=$(FF_PKGNAME)
+
+##### deprecated LuCI-stuff 
+# should be remove by time ...
+
 LUCI_NAME?=$(notdir ${CURDIR})
 LUCI_TYPE?=$(word 2,$(subst -, ,$(LUCI_NAME)))
 LUCI_BASENAME?=$(patsubst luci-$(LUCI_TYPE)-%,%,$(LUCI_NAME))
@@ -46,9 +53,6 @@ LUCI_MENU.app=3. Applications
 LUCI_MENU.theme=4. Themes
 LUCI_MENU.proto=5. Protocols
 LUCI_MENU.lib=6. Libraries
-
-
-PKG_NAME?=$(LUCI_NAME)
 
 PKG_VERSION?=$(if $(DUMP),x,$(strip $(shell \
 	if svn info >/dev/null 2>/dev/null; then \
