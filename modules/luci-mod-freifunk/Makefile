@@ -6,10 +6,7 @@
 
 include $(TOPDIR)/rules.mk
 
-LUCI_TITLE:=LuCI Freifunk module
-LUCI_DEPENDS:=+luci-mod-admin-full +luci-lib-json +luci-lib-ipkg +freifunk-firewall +freifunk-common
+FF_TITLE:=LuCI Freifunk module
+FF_DEPENDS:=+luci-mod-admin-full +luci-lib-json +luci-lib-ipkg +freifunk-firewall +freifunk-common
 
-include ../../luci.mk
-
-# call BuildPackage - OpenWrt buildroot signature
-
+include ../../freifunk.mk
