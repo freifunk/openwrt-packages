@@ -24,3 +24,9 @@ See [LICENSE](LICENSE) file.
 ## Package Guidelines
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) file.
+
+## If you have commit access (in addition to the guidelines of OpenWrt):
+
+* Do NOT use `git push --force`.
+* Use Pull Requests if you are unsure and to suggest changes to other developers.
+* Don't use merge commits if you accept a single commit PR, do a "rebase"-merge. This will keep the history more readable, as it's not flooded by "merge" logmessages
