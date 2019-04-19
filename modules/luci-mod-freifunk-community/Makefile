@@ -13,7 +13,7 @@ LUCI_DEPENDS:= \
 	+olsrd-mod-watchdog +kmod-tun +ip +freifunk-watchdog +luci-app-olsr \
 	+luci-app-olsr-services +freifunk-gwcheck +freifunk-mapupdate
 
-include ../../luci.mk
+include ../../freifunk.mk
 
 # call BuildPackage - OpenWrt buildroot signature
 

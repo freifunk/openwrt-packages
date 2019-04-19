@@ -9,6 +9,6 @@ include $(TOPDIR)/rules.mk
 LUCI_TITLE:=Tools for network diagnosis like traceroute and ping
 LUCI_DEPENDS:=
 
-include ../../luci.mk
+include ../../freifunk.mk
 
 # call BuildPackage - OpenWrt buildroot signature
