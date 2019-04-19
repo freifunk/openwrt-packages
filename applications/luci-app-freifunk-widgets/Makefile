@@ -9,6 +9,6 @@ include $(TOPDIR)/rules.mk
 LUCI_TITLE:=Widgets for the Freifunk index page
 LUCI_DEPENDS:=+luci-mod-freifunk
 
-include ../../luci.mk
+include ../../freifunk.mk
 
 # call BuildPackage - OpenWrt buildroot signature

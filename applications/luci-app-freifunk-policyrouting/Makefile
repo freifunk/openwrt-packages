@@ -9,6 +9,6 @@ include $(TOPDIR)/rules.mk
 LUCI_TITLE:=Policy routing for mesh traffic
 LUCI_DEPENDS:=+freifunk-policyrouting
 
-include ../../luci.mk
+include ../../freifunk.mk
 
 # call BuildPackage - OpenWrt buildroot signature

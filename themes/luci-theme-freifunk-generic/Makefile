@@ -9,6 +9,6 @@ include $(TOPDIR)/rules.mk
 LUCI_TITLE:=Freifunk Generic Theme
 LUCI_DEPENDS:=
 
-include ../../luci.mk
+include ../../freifunk.mk
 
 # call BuildPackage - OpenWrt buildroot signature
