@@ -4,9 +4,22 @@
  Licensed to the public under the Apache License 2.0.
 -%>
 
-<%+header%>
 <% 
 local uci = require "luci.model.uci".cursor()
+local http = require "luci.http"
+
+local webAppRoot = http.getenv("PATH_INFO") == nil
+local redirectPage = uci:get("freifunk", "luci", "redirect_landingpage") or ""
+
+if (webAppRoot and redirectPage ~= "") then
+        local url = luci.dispatcher.build_url(redirectPage)
+        http.redirect(url)
+end
+%>
+
+<%+header%>
+
+<% 
 local tpl = require "luci.template"
 local fs = require "nixio.fs"
 
