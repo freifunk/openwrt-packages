@@ -91,8 +91,6 @@ function index()
 	page.title  = _("Contact")
 	page.order  = 15
 
-	entry({"freifunk", "map"}, template("freifunk-map/frame"), _("Map"), 50)
-	entry({"freifunk", "map", "content"}, template("freifunk-map/map"), nil, 51)
 	entry({"admin", "freifunk", "profile_error"}, template("freifunk/profile_error"))
 end
 
