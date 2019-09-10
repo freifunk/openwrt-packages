@@ -1,118 +1,141 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-	<head>
-		<title>Map</title>
-	</head>
+<head>
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+            integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+            crossorigin=""
+    />
+    <script
+            src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+            integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+            crossorigin=""
+    >
+    </script>
+    <title>Map</title>
+</head>
 
-	<body style="margin:0">
-		<script src="//dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.1&s=1" type="text/javascript"></script>
-		<script type="text/javascript">
-			var alias = new Array;
-			var points = new Array;
-			var unkpos = new Array;
-			var lineid = 0;
-			onload=new Function("if(null!=window.ffmapinit)ffmapinit();");
+<body style="margin:0">
+<div id="ffmap" style="position:relative; width:100%; height:640px;"></div>
+<script type="text/javascript">
 
-			function Mid(mainip,aliasip)
-			{
-				alias[aliasip]=mainip;
-			}
+      var INFINITE = 99.99;
 
-			function Node(mainip,lat,lon,ishna,hnaip,name)
-			{
-				points[mainip] = new VELatLong(lat, lon);
-				map.AddPushpin(new VEPushpin(mainip, points[mainip],
-				'<%=luci.config.main.resourcebase%>/freifunk-map/'+(ishna?'hna':'node')+'.gif', 'Node:'+name,
-				'<br><img src="<%=luci.config.main.resourcebase%>/freifunk-map/'+(ishna?'hna':'node')+'.gif">'+
-				'<br>IP:'+mainip+'<br>DefGW:'+hnaip));
-			}
+      var map = L.map('ffmap').setView([52.48, 12], 13);
 
-			function Self(mainip,lat,lon,ishna,hnaip,name)
-			{
-				//map.SetDashboardSize(VEDashboardSize.Small);
-				map.LoadMap(new VELatLong(lat, lon), 15, VEMapStyle.Hybrid);
-				map.SetScaleBarDistanceUnit(VEDistanceUnit.Kilometers);
-				map.ShowMiniMap(14, 474);
-				Node(mainip,lat,lon,ishna,hnaip,name);
-			}
+      var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+	    var osmAttrib='Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
+	    var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});
+     	map.addLayer(osm);
 
-			function Link(fromip,toip,lq,nlq,etx)
-			{
-				if (0==lineid && null!=window.ffmapstatic) ffmapstatic();
-				if (null != alias[toip]) toip = alias[toip];
-				if (null != alias[fromip]) fromip = alias[fromip];
-				if (null != points[fromip] && null != points[toip])
-				{
-					var color;
-					var red = 240;
-					var green = 0;
-					var blue = 0;
-					var w = 1
+      var alias = new Array;
+      var points = new Array;
+      var unkpos = new Array;
+      var lineid = 0;
+      onload=new Function("if(null!=window.ffmapinit)ffmapinit();");
 
-					if (etx < 100) {red=252;green=102;blue=0;w=2};
-					if (etx < 10) {red=255;green=203;blue=5;w=3};
-					if (etx < 4) {red=240;green=255;blue=0;w=4};
-					if (etx < 2) {red=0;green=204;blue=0;w=5};
-					if (etx < 1) {red=80;green=0;blue=0;w=1};
+      function Mid(mainip, aliasip)
+      {
+        alias[aliasip]=mainip;
+      }
 
-					map.AddPolyline(new VEPolyline('id'+lineid, [points[fromip], points[toip]],
-					new VEColor(red, green, blue, 0.5), w));
+      function Node(mainip,lat,lon,ishna,hnaip,name)
+      {
+        points[mainip] = [lat, lon];
+        var marker = L.circleMarker([lat, lon]).addTo(map);
+        marker.bindPopup(
+          'Node: '+ name
+          +
+          '<br>IP: '+ mainip
+          + '<br>DefGW: '+ hnaip
+        );
+      }
+
+      function Self(mainip,lat,lon,ishna,hnaip,name)
+      {
+        //map.LoadMap(new VELatLong(lat, lon), 15, VEMapStyle.Hybrid);
+        //map.SetScaleBarDistanceUnit(VEDistanceUnit.Kilometers);
+        //map.ShowMiniMap(14, 474);
+        Node(mainip,lat,lon,ishna,hnaip,name);
+        map.setView([lat, lon], 13)
+      }
+
+      function Link(fromip,toip,lq,nlq,etx)
+      {
+        if (0==lineid && null!=window.ffmapstatic) ffmapstatic();
+        if (null != alias[toip]) toip = alias[toip];
+        if (null != alias[fromip]) fromip = alias[fromip];
+        if (null != points[fromip] && null != points[toip])
+        {
+          var color;
+          var red = 240;
+          var green = 0;
+          var blue = 0;
+          var w = 1
+
+          if (etx < 100) {red=252;green=102;blue=0;w=2};
+          if (etx < 10) {red=255;green=203;blue=5;w=3};
+          if (etx < 4) {red=240;green=255;blue=0;w=4};
+          if (etx < 2) {red=0;green=204;blue=0;w=5};
+          if (etx < 1) {red=80;green=0;blue=0;w=1};
+          var polyline = L.polyline([points[fromip], points[toip]], {color:
+            'rgb(' + red + ', ' + green +  ', ' + blue + ')'})
+            .addTo(map);
+          polyline.bindPopup(
+            fromip + " - " + toip + "<br>"
+            + "ETX: " + etx + "<br>"
+            + "LQ: " + lq + "<br>"
+            + "NLQ: " + nlq + "<br>"
+          );
 
 
-				}
-				else
-				{
-					if (null == points[toip]) unkpos[toip] = '';
-					if (null == points[fromip]) unkpos[fromip] = '';
-				}
-				lineid++;
-			}
+        }
+        else
+        {
+          if (null == points[toip]) unkpos[toip] = '';
+          if (null == points[fromip]) unkpos[fromip] = '';
+        }
+        lineid++;
+      }
 
-			function PLink(fromip,toip,lq,nlq,etx,lata,lona,ishnaa,latb,lonb,ishnab)
-			{
-				Link(fromip,toip,lq,nlq,etx);
-			}
+      function PLink(fromip,toip,lq,nlq,etx,lata,lona,ishnaa,latb,lonb,ishnab)
+      {
+        Link(fromip,toip,lq,nlq,etx);
+      }
 
-			function ffmapinit()
-			{
-				if(null!=window.map)map.Dispose();
+      function ffmapinit()
+      {
 
-				var INFINITE = 99.99;
+        <%
+          local fd
+          local uci = require "luci.model.uci".cursor()
 
-				map = new VEMap('ffmap');
-				<%
-					local fd
-					local uci = require "luci.model.uci".cursor()
+          uci:foreach("olsrd", "LoadPlugin", function(s)
+            if s.library == "olsrd_nameservice.so.0.3" and s.latlon_file then
+              fd = io.open(s.latlon_file)
+            end
+          end)
 
-					uci:foreach("olsrd", "LoadPlugin", function(s)
-						if s.library == "olsrd_nameservice" and s.latlon_file then
-							fd = io.open(s.latlon_file)
-						end
-					end)
+          if fd then
+            local data = fd:read("*a")
+            fd:close()
 
-					if fd then
-						local data = fd:read("*a")
-						fd:close()
+            if data then
+              local line
+              for line in data:gmatch("[^\n]+") do
+                if line:match(";$") then
+                  write(line .. "\n")
+                else
+                  break
+                end
+              end
+            end
+          end
+        %>
+      }
 
-						if data then
-							local line
-							for line in data:gmatch("[^\n]+") do
-								if line:match(";$") then
-									write(line .. "\n")
-								else
-									break
-								end
-							end
-						end
-					end
-				%>
-			}
 
-			function ffgoto(ip)
-			{
-				map.SetCenter(points[ip]);
-			}
-		</script>
-		<div id="ffmap" style="position:relative; width:100%; height:640px;"></div>
-	</body>
+</script>
+</body>
 </html>
