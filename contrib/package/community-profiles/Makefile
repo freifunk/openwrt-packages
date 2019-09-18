@@ -16,6 +16,7 @@ define Package/community-profiles
   SUBMENU:=9. Freifunk
   TITLE:=Community profiles
   DEPENDS:=freifunk-common
+  PKGARCH:=all
 endef
 
 define Package/community-profiles/description
