@@ -4,7 +4,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=freifunk-common
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
@@ -22,7 +22,7 @@ define Package/freifunk-common/description
   Common files and scripts that are needed to run free wireless mesh networks.
 endef
 
-define Package/luci-mod-freifunk/conffiles
+define Package/freifunk-common/conffiles
 /etc/config/freifunk
 endef
 
