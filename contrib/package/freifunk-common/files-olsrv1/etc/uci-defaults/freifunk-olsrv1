@@ -1,0 +1,6 @@
+#!/bin/sh
+
+uci -m import freifunk <<EOF
+config 'defaults' 'olsr_interfacedefaults'
+	option 'Ip4Broadcast' '255.255.255.255'
+EOF

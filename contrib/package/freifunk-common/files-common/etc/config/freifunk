@@ -116,9 +116,6 @@ config 'defaults' 'dhcp'
 	option 'start' '2'
 	option 'force' '1'
 
-config 'defaults' 'olsr_interfacedefaults'
-	option 'Ip4Broadcast' '255.255.255.255'
-
 config 'defaults' 'wifi_iface_80211s'
 	option 'mode' 'mesh'
 	option 'encryption' 'none'
