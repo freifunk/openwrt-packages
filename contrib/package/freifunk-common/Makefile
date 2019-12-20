@@ -4,7 +4,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=freifunk-common
-PKG_RELEASE:=5
+PKG_RELEASE:=6
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
@@ -15,7 +15,7 @@ define Package/freifunk-common
   CATEGORY:=LuCI
   SUBMENU:=9. Freifunk
   TITLE:=Freifunk common files
-  DEPENDS:=+libuci-lua +olsrd
+  DEPENDS:=+libuci-lua
 endef
 
 define Package/freifunk-common/description
@@ -24,6 +24,18 @@ endef
 
 define Package/freifunk-common/conffiles
 /etc/config/freifunk
+endef
+
+define Package/freifunk-common-olsr
+  SECTION:=luci
+  CATEGORY:=LuCI
+  SUBMENU:=9. Freifunk
+  TITLE:=Freifunk common files for olsr-v1
+  DEPENDS:=freifunk-common +olsrd
+endef
+
+define Package/freifunk-common-olsr/description
+  Additional files and scripts that are needed to run free wireless mesh networks based on OLSRv1.
 endef
 
 define Build/Prepare
@@ -37,7 +49,12 @@ define Build/Compile
 endef
 
 define Package/freifunk-common/install
-	$(CP) ./files/* $(1)/
+	$(CP) ./files-common/* $(1)/
+endef
+
+define Package/freifunk-common-olsr/install
+	$(CP) ./files-olsrv1/* $(1)/
 endef
 
 $(eval $(call BuildPackage,freifunk-common))
+$(eval $(call BuildPackage,freifunk-common-olsr))
