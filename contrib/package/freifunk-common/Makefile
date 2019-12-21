@@ -15,7 +15,7 @@ define Package/freifunk-common
   CATEGORY:=LuCI
   SUBMENU:=9. Freifunk
   TITLE:=Freifunk common files
-  DEPENDS:=+libuci-lua
+  DEPENDS:=+uci
 endef
 
 define Package/freifunk-common/description
