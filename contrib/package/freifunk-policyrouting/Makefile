@@ -4,7 +4,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=freifunk-policyrouting
-PKG_RELEASE:=6
+PKG_RELEASE:=7
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
@@ -34,14 +34,6 @@ endef
 
 define Package/freifunk-policyrouting/install
 	$(CP) ./files/* $(1)/
-endef
-
-define Package/freifunk-policyrouting/postinst
-#!/bin/sh
-[ -n "$${IPKG_INSTROOT}" ] || {
-	/etc/init.d/freifunk-policyrouting enabled || /etc/init.d/freifunk-policyrouting enable
-	exit 0
-}
 endef
 
 $(eval $(call BuildPackage,freifunk-policyrouting))
