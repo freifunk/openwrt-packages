@@ -4,7 +4,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=freifunk-common
-PKG_RELEASE:=8
+PKG_RELEASE:=9
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
@@ -31,7 +31,7 @@ define Package/freifunk-common-olsr
   CATEGORY:=LuCI
   SUBMENU:=9. Freifunk
   TITLE:=Freifunk common files for olsr-v1
-  DEPENDS:=freifunk-common +olsrd +micrond
+  DEPENDS:=freifunk-common +olsrd +micrond +libuci-lau
 endef
 
 define Package/freifunk-common-olsr/description
