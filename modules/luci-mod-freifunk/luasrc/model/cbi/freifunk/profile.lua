@@ -1,7 +1,7 @@
 -- Copyright 2011-2012 Manuel Munz <freifunk at somakoma dot de>
 -- Licensed to the public under the Apache License 2.0.
 
-local uci = require "luci.model.uci".cursor()
+local uci = require "uci".cursor()
 local ipkg = require "luci.model.ipkg"
 local community = uci:get("freifunk", "community", "name")
 
