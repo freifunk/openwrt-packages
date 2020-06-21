@@ -42,8 +42,9 @@
 	<h2 class="navigation"><a id="navigation" name="navigation"><%:Navigation%></a></h2>
 
 	<span class="hostname"><a href="/"><%=(boardinfo.hostname or "?")%></a></span>
-	<span class="distversion"><%=ver.distversion%></span>
-	<span><%:Load%>: <%="%.2f" % (loadinfo[1] / 65535.0)%> <%="%.2f" % (loadinfo[2] / 65535.0)%> <%="%.2f" % (loadinfo[3] / 65535.0)%></span>
+<!-- the line-break at the line-end is just a hack and needs some proper HTML/CSS implementation -->
+	<span class="distversion"><%=ver.distversion%><br />
+	<%:Load%>: <%="%.2f" % (loadinfo[1] / 65535.0)%> <%="%.2f" % (loadinfo[2] / 65535.0)%> <%="%.2f" % (loadinfo[3] / 65535.0)%></span>
 	<span id="indicators"></span>
 </div>
 
