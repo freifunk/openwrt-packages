@@ -1,0 +1,11 @@
+{
+	"luci-mod-freifunk": {
+		"description": "Provdies access to freifunk",
+		"read": {
+			"uci": [ "freifunk", "profile_*" ],
+		},
+		"write": {
+			"uci": [ "freifunk", "profile_*" ],
+		}
+	}
+}
