@@ -121,4 +121,5 @@ config 'defaults' 'wifi_iface_80211s'
 	option 'encryption' 'none'
 	option 'mesh_id' 'Mesh-Freifunk'
 	option 'mesh_fwding' '0'
+	option 'mcast_rate' '12000'
 
