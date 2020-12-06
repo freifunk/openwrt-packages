@@ -16,7 +16,7 @@ $Id$
 local bus = require "ubus"
 local string = require "string"
 local sys = require "luci.sys"
-local uci = require "luci.model.uci".cursor_state()
+local uci = require "uci".cursor()
 local util = require "luci.util"
 local json = require "luci.json"
 local netm = require "luci.model.network"
@@ -84,7 +84,7 @@ end
 
 function fetch_olsrd_config()
 	local data = {}
-	local IpVersion = uci:get_first("olsrd", "olsrd","IpVersion")
+	local IpVersion = uci:get("olsrd", "olsrd","IpVersion")
 	if IpVersion == "4" or IpVersion == "6and4" then
 		local jsonreq4 = util.exec("echo /config | nc 127.0.0.1 9090 2>/dev/null") or {}
 		local jsondata4 = json.decode(jsonreq4) or {}
@@ -104,7 +104,7 @@ end
 
 function fetch_olsrd_links()
 	local data = {}
-	local IpVersion = uci:get_first("olsrd", "olsrd","IpVersion")
+	local IpVersion = uci:get("olsrd", "olsrd","IpVersion")
 	if IpVersion == "4" or IpVersion == "6and4" then
 		local jsonreq4 = util.exec("echo /links | nc 127.0.0.1 9090 2>/dev/null") or {}
 		local jsondata4 = json.decode(jsonreq4) or {}
@@ -145,7 +145,7 @@ end
 
 function fetch_olsrd_neighbors(interfaces)
 	local data = {}
-	local IpVersion = uci:get_first("olsrd", "olsrd","IpVersion")
+	local IpVersion = uci:get("olsrd", "olsrd","IpVersion")
 	if IpVersion == "4" or IpVersion == "6and4" then
 		local jsonreq4 = util.exec("echo /links | nc 127.0.0.1 9090 2>/dev/null") or {}
 		local jsondata4 = json.decode(jsonreq4) or {}

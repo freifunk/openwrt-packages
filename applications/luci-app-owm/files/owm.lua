@@ -1,7 +1,7 @@
 #!/usr/bin/lua
 
 require("luci.util")
-require("luci.model.uci")
+require("uci")
 require("luci.sys")
 require("nixio.fs")
 require("luci.httpclient")
@@ -33,7 +33,7 @@ if (#arg) > 0 and arg[1]~="--dry-run" then
 end
 
 -- Init state session
-local uci = luci.model.uci.cursor_state()
+local uci = uci.cursor(nil, "/var/state")
 local owm = require "luci.owm"
 local json = require "luci.json"
 local lockfile = "/var/run/owm.lock"
