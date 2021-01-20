@@ -10,8 +10,8 @@ $Id$
 
 		<% if self:cfgvalue(section) ~= false then %>
 			<% if self.latfield and self.lonfield then %>
-				<input type="hidden" <%= attr("value", string.format('cbid.%s.%s.%s', self.config, section, self.latfield))..attr("id", cbid..".latfield")..attr("name", cbid..".latfield")%>/>
-				<input type="hidden" <%= attr("value", string.format('cbid.%s.%s.%s', self.config, section, self.lonfield))..attr("id", cbid..".lonfield")..attr("name", cbid..".lonfield")%>/>
+				<input type="hidden" <%= attr("value", string.format('widget.cbid.%s.%s.%s', self.config, section, self.latfield))..attr("id", cbid..".latfield")..attr("name", cbid..".latfield")%>/>
+				<input type="hidden" <%= attr("value", string.format('widget.cbid.%s.%s.%s', self.config, section, self.lonfield))..attr("id", cbid..".lonfield")..attr("name", cbid..".lonfield")%>/>
 			<% end %>
 			<input type="hidden" <%= attr("value", self.centerlat)..attr("id", cbid..".centerlat")..attr("name", cbid..".centerlat")%>/>
 			<input type="hidden" <%= attr("value", self.centerlon)..attr("id", cbid..".centerlon")..attr("name", cbid..".centerlon")%>/>
