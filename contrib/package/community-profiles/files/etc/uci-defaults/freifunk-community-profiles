@@ -2,6 +2,6 @@
 
 rm -f /etc/config/profile_*
 cd /usr/share/freifunk/community-profiles
-for profile in profile_* ; do
-  ln -s /usr/share/freifunk/community-profiles/${profile} /etc/config/${profile}
+for profile in * ; do
+  ln -s /usr/share/freifunk/community-profiles/${profile} /etc/config/profile_${profile}
 done
