@@ -18,8 +18,9 @@ function index()
 	page.title    = _("Freifunk")
 	page.target   = alias("freifunk", "index")
 	page.order    = 5
-	page.setuser  = "nobody"
-	page.setgroup = "nogroup"
+-- TODO: fix issue #33 and drop privileges again
+--	page.setuser  = "nobody"
+--	page.setgroup = "nogroup"
 	page.i18n     = "freifunk"
 	page.index    = true
 
