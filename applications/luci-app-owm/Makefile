@@ -1,6 +1,3 @@
-#
-# Copyright (C) 2012-2013 OpenWrt.org
-#
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
@@ -8,12 +5,9 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-owm
-PKG_RELEASE:=0.4.20
-
+PKG_RELEASE:=0.5.0
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
-
-
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -21,7 +15,7 @@ define Package/luci-app-owm/default
   SECTION:=luci
   CATEGORY:=LuCI
   SUBMENU:=3. Applications
-  URL:=https://github.com/freifunk-berlin/firmware-packages
+  URL:=https://github.com/freifunk/openwrt-packages
   PKGARCH:=all
 endef
 
@@ -102,4 +96,3 @@ $(eval $(call BuildPackage,luci-app-owm))
 $(eval $(call BuildPackage,luci-app-owm-cmd))
 $(eval $(call BuildPackage,luci-app-owm-gui))
 $(eval $(call BuildPackage,luci-app-owm-ant))
-
