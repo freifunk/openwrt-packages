@@ -4,7 +4,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=freifunk-common
-PKG_RELEASE:=10
+PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
