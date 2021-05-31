@@ -10,10 +10,14 @@ local http = require "luci.http"
 
 local webAppRoot = http.getenv("PATH_INFO") == nil
 local redirectPage = uci:get("freifunk", "luci", "redirect_landingpage") or ""
+local redirectUrl = uci:get("freifunk", "luci", "redirect_landingurl") or ""
 
 if (webAppRoot and redirectPage ~= "") then
-        local url = luci.dispatcher.build_url(redirectPage)
-        http.redirect(url)
+	local url = luci.dispatcher.build_url(redirectPage)
+	http.redirect(url)
+end
+if (webAppRoot and redirectUrl ~= "") then
+	http.redirect(redirectUrl)
 end
 %>
 
