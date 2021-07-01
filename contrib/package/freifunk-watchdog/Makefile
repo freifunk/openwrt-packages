@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=freifunk-watchdog
-PKG_RELEASE:=8
+PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 PKG_BUILD_DEPENDS := uci

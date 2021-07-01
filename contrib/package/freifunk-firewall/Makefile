@@ -7,7 +7,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=freifunk-firewall
-PKG_RELEASE:=3
+PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
