@@ -22,7 +22,7 @@ if fs.access("/var/run/olsrd.pid") or fs.access("/var/run/olsrd4.pid") then
 
 	if intv and fs.access(stamp) then
 		local systime = os.time()
-		local wdgtime = tonumber(io.lines(stamp)())
+		local wdgtime = tonumber(io.lines(stamp)() or nil)
 
 		if not wdgtime or ( systime - wdgtime ) > ( intv * 2 ) then
 			os.execute("logger -t 'OLSR watchdog' 'Process died - restarting!'")
