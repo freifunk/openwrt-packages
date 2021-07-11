@@ -17,4 +17,8 @@ else
 #$(info found luci.mk at $(LUCIMKFILE))
 endif
 
+LUCI_MAINTAINER?=The global Freifunk community
+LUCI_URL?=http://github.com/freifunk/openwrt-packages
+LUCI_SUBMENU_FORCED:=9. Freifunk
+
 include $(LUCIMKFILE)

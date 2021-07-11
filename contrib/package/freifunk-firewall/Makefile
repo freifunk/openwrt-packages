@@ -1,39 +1,15 @@
 #
 # Copyright (C) 2009 Jo-Philipp Wich <jow@openwrt.org>
+# Copyright (c) 2021 Sven Roederer <freifunk@it-solutions.geroedel.de>
 #
 # This is free software, licensed under the Apache 2.0 license.
 #
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=freifunk-firewall
-PKG_RELEASE:=3
-
-PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
-
-include $(INCLUDE_DIR)/package.mk
-
-define Package/freifunk-firewall
-  SECTION:=luci
-  CATEGORY:=LuCI
-  SUBMENU:=9. Freifunk
-  TITLE:=Freifunk Firewall Addon
-  DEPENDS:=+firewall
-endef
-
-define Package/freifunk-firewall/description
-  Various firewall extensions for Freifunk. Includes NAT fixes and advanced settings.
-endef
-
-define Build/Prepare
-	mkdir -p $(PKG_BUILD_DIR)
-endef
-
-define Build/Configure
-endef
-
-define Build/Compile
-endef
+LUCI_TITLE:=Freifunk Firewall Addon
+LUCI_DEPENDS:=+firewall
+LUCI_DESCRIPTION:=Various firewall extensions for Freifunk. Includes NAT fixes and advanced settings.
 
 define Package/freifunk-firewall/postinst
 #!/bin/sh
@@ -46,8 +22,6 @@ define Package/freifunk-firewall/postinst
 }
 endef
 
-define Package/freifunk-firewall/install
-	$(CP) ./files/* $(1)/
-endef
+include ../../../freifunk.mk
 
-$(eval $(call BuildPackage,freifunk-firewall))
+# call BuildPackage - OpenWrt buildroot signature
