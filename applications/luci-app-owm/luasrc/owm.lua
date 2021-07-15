@@ -33,27 +33,6 @@ local dofile, _G = dofile, _G
 -- @cstyle	instance
 module "luci.owm"
 
--- backported from LuCI 0.11 and adapted form berlin-stats
---- Returns the system type (in a compatible way to LuCI 0.11)
--- @return	String indicating this as an deprecated value
---        	(instead of the Chipset-type)
--- @return	String containing hardware model information
---        	(trimmed to router-model only)
-function sysinfo_for_kathleen020()
-	local cpuinfo = nixio.fs.readfile("/proc/cpuinfo")
-
-	local system = 'system is deprecated'
-
-	local model =
-		boardinfo['model'] or
-		cpuinfo:match("machine\t+: ([^\n]+)") or
-		cpuinfo:match("Hardware\t+: ([^\n]+)") or
-		nixio.uname().machine or
-		system
-
-        return system, model
-end
-
 -- inspired by luci.version
 --- Returns the system version info build from /etc/openwrt_release
 --- switch from luci.version which always includes
@@ -274,11 +253,14 @@ function get()
 	root.system = {
 		uptime = {sys.uptime()},
 		loadavg = {sysinfo.load[1] / 65536.0},
-		sysinfo = {sysinfo_for_kathleen020()},
 	}
 
 	root.hostname = sys.hostname() --owm
-	root.hardware = boardinfo['system'] --owm
+	root.hardwareinfo = {
+		system = boardinfo['system'], --owm
+		model = boardinfo['model'],
+		openwrt_boardname = boardinfo['board_name']
+	}
 
 	root.firmware = {
 		name=version.distname, --owm
