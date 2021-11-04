@@ -131,7 +131,7 @@ return view.extend({
             E('div', { 'class': 'cbi-map' }, [
                 E('h2', {}, _('Wireless Overview')),
                 E('fieldset', {'class': 'cbi-section'}, [
-                    E('table', { 'id': 'wirelessTable' }, [
+                    E('table', { 'id': 'wirelessTable', 'width': '100%' }, [
                         E('tr', { 'class': 'tr table-titles' }, [
                             E('td', { 'class': 'th' }, _('Signal')),
                             E('td', { 'class': 'th' }, _('Bitrate')),

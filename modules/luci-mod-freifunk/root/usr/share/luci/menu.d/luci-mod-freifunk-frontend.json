@@ -1,21 +1,21 @@
 {
-	"freifunk1": {
-		"title": "Freifunk1",
+	"freifunk": {
+		"title": "Freifunk",
 		"order": 5,
 		"action": {
 			"type": "firstchild",
 			"recurse": true
 		}
 	},
-	"freifunk1/index": {
-		"title": "Freifunk1",
+	"freifunk/index": {
+		"title": "Overview",
 		"order": 10,
 		"action": {
 			"type": "view",
 			"path": "freifunk/frontend/index"
 		}
 	},
-	"freifunk1/contact": {
+	"freifunk/contact": {
 		"title": "Contact",
 		"order": 15,
 		"action": {
@@ -23,34 +23,49 @@
 			"path": "freifunk/frontend/contact"
 		}
 	},
-	"freifunk1/status.json": {
+	"freifunk/status.json": {
 		"action": {
 			"type": "call",
 			"module": "luci.controller.freifunk.freifunk",
 			"function": "jsonstatus"
 		}
 	},
-	"freifunk1/status": {
+	"freifunk/status": {
 		"title": "Status",
 		"order": 20,
 		"action": {
 			"type": "firstchild"
 		}
 	},
-	"freifunk1/status/status": {
+	"freifunk/status/status": {
 		"title": "Status",
-		"order": 20,
+		"order": 25,
 		"action": {
 			"type": "view",
 			"path": "freifunk/frontend/public_status"
 		}
 	},
-	"freifunk1/status/zeroes": {
+	"freifunk/status/zeroes": {
 		"title": "Testdownload",
 		"action": {
 			"type": "call",
 			"module": "luci.controller.freifunk.freifunk",
 			"function": "zeroes"
+		}
+	},
+	"freifunk/map": {
+		"title": "Map",
+		"order": 50,
+		"action": {
+			"type": "firstchild"
+		}
+	},
+	"freifunk/map/map": {
+		"title": "Map",
+		"order": 51,
+		"action": {
+			"type": "view",
+			"path": "freifunk/frontend/map/frame"
 		}
 	}
 }

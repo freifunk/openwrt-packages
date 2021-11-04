@@ -10,6 +10,14 @@
 			"recurse": true
 		}
 	},
+	"admin/freifunk/adminindex": {
+		"title": "Overview",
+		"order": 5,
+		"action": {
+			"type": "view",
+			"path": "freifunk/admin/index"
+		}
+	},
 	"admin/freifunk/basics": {
 		"title": "Basic Settings",
 		"order": 10,

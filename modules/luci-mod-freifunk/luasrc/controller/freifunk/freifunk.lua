@@ -4,31 +4,7 @@
 module("luci.controller.freifunk.freifunk", package.seeall)
 
 function index()
-	local uci = require "luci.model.uci".cursor()
 	local page
-
-	-- Frontend
-	page          = node()
-	page.lock     = true
-	page.target   = alias("freifunk")
-	page.subindex = true
-	page.index    = false
-
-	page          = node("freifunk")
-	page.title    = _("Freifunk")
-	page.target   = alias("freifunk", "index")
-	page.order    = 5
-	page.setuser  = "nobody"
-	page.setgroup = "nogroup"
-	page.i18n     = "freifunk"
-	page.index    = true
-
-	page          = node("freifunk", "index")
-	page.target   = template("freifunk/index")
-	page.title    = _("Overview")
-	page.order    = 10
-	page.indexignore = true
-
 
 	if nixio.fs.access("/usr/sbin/luci-splash") then
 		assign({"freifunk", "status", "splash"}, {"splash", "publicstatus"}, _("Splash"), 40)
@@ -44,11 +20,7 @@ function index()
 	end
 
 	-- backend
-	-- assign({"mini", "freifunk"}, {"admin", "freifunk"}, _("Freifunk"), 5)
-	-- entry({"admin", "freifunk"}, alias("admin", "freifunk", "index"), _("Freifunk"), 5)
-
-	entry({"freifunk", "map"}, template("freifunk-map/frame"), _("Map"), 50)
-	entry({"freifunk", "map", "content"}, template("freifunk-map/map"), nil, 51)
+	assign({"mini", "freifunk"}, {"admin", "freifunk"}, _("Freifunk"), 5)
 end
 
 function zeroes()

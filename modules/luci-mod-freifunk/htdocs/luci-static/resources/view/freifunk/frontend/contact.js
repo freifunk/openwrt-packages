@@ -28,7 +28,7 @@ return view.extend({
         let lat = uci.get_first("system", "system", "latitude");
         let latlon = E([], {}, [
             lat + ' ' + lon + ' (', 
-            E('a', {'href': L.url('freifunk/map')}, _('Show on map')),
+            E('a', {'href': L.url('freifunk/map/map')}, _('Show on map')),
             ')']);
         let location = uci.get_first("system", "system", "location")
         if (location == null) {

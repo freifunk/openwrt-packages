@@ -2,7 +2,7 @@
 	"luci-mod-freifunk": {
 		"description": "Provdies access to freifunk",
 		"read": {
-			"uci": [ "freifunk", "profile_*" ],
+			"uci": [ "freifunk", "profile_*", "system" ],
 			"file" : {
 				"/etc/config/profile_*": ["read"],
 				"/www/luci-static/index_user.html": ["read"]
