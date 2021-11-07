@@ -46,7 +46,7 @@ return view.extend({
         let url = uci.get_first('profile_' + community, 'community', 'homepage');
         url = (url === undefined) ? 'https://freifunk.net' : url;
         const hostname = data[1].hostname;
-        const userText = data[0];
+        const userText = (data[0]) ? E(data[0]): '';
         let defaultContent;
         if (defaultText != 'disabled' || !defaultText) {
             defaultContent = E([], {}, [
@@ -79,7 +79,7 @@ return view.extend({
         }
         return E([], {}, [
             defaultContent,
-            E(userText)
+            userText
         ]);
     }
 })

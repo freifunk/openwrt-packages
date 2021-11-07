@@ -19,16 +19,18 @@ return view.extend({
         let mail = uci.get("freifunk", "contact", "mail");
         let phone = uci.get("freifunk", "contact", "phone");
         let homepageNodes = []
-        homepages.forEach(element => {
-            homepageNodes.push(E('a', { 'href': element }, element));
-            homepageNodes.push(E('br'));
-        });
+        if (homepages != null) {
+            homepages.forEach(element => {
+                homepageNodes.push(E('a', { 'href': element }, element));
+                homepageNodes.push(E('br'));
+            })
+        };
         let note = uci.get("freifunk", "contact", "note");
         let lon = uci.get_first("system", "system", "longitude");
         let lat = uci.get_first("system", "system", "latitude");
         let latlon = E([], {}, [
-            lat + ' ' + lon + ' (', 
-            E('a', {'href': L.url('freifunk/map/map')}, _('Show on map')),
+            lat + ' ' + lon + ' (',
+            E('a', { 'href': L.url('freifunk/map') }, _('Show on map')),
             ')']);
         let location = uci.get_first("system", "system", "location")
         if (location == null) {
@@ -61,5 +63,5 @@ return view.extend({
             noteNode
         ])
         return body;
-}
+    }
 })
