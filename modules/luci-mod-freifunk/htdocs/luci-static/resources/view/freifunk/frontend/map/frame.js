@@ -42,10 +42,3 @@ return view.extend({
         };
     }
 })
-
-/*
-
-<% if has_latlon then %>
-	<iframe style="width:100%; height:640px; border:none" src="<%=url("freifunk/map/content")%>"></iframe>
-
- */

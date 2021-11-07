@@ -2,13 +2,8 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-    crossorigin="" />
-  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-    crossorigin="">
-    </script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
   <title>Map</title>
 </head>
 
@@ -30,7 +25,6 @@
     var unkpos = new Array;
     var lineid = 0;
     onload = new Function("if(null!=window.ffmapinit)ffmapinit();");
-    console.log(document.getElementById('mapframe'));
 
     function Mid(mainip, aliasip) {
       alias[aliasip] = mainip;
@@ -111,37 +105,7 @@
       };
       var data = [{ "jsonrpc": "2.0", "id": 1, "method": "call", "params": ["00000000000000000000000000000000", "ffmap", "getdata", {}] }];
       xhttp.send(JSON.stringify(data));
-
-
-
-      /*  <%
-         local fd
-         local uci = require "luci.model.uci".cursor()
-
-         uci:foreach("olsrd", "LoadPlugin", function(s)
-           if s.library == "olsrd_nameservice" and s.latlon_file then
-             fd = io.open(s.latlon_file)
-           end
-         end)
-
-         if fd then
-           local data = fd:read("*a")
-           fd:close()
-
-           if data then
-             local line
-             for line in data:gmatch("[^\n]+") do
-               if line:match(";$") then
-                 write(line .. "\n")
-               else
-                 break
-               end
-             end
-           end
-         end
-       %>*/
     }
-
 
   </script>
 </body>

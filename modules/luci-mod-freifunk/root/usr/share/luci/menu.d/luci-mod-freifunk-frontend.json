@@ -57,13 +57,6 @@
 		"title": "Map",
 		"order": 50,
 		"action": {
-			"type": "firstchild"
-		}
-	},
-	"freifunk/map/map": {
-		"title": "Map",
-		"order": 51,
-		"action": {
 			"type": "view",
 			"path": "freifunk/frontend/map/frame"
 		}
