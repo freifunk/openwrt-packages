@@ -3,6 +3,9 @@
 . /lib/functions.sh
 . /lib/functions/network.sh
 
+IGNORE_INTERFACES=$(uci get freifunk-policyrouting.pr.ignore_interface)
+list_contains IGNORE_INTERFACES $INTERFACE && exit
+
 proto="4"
 [ -f /proc/net/ipv6_route ] && proto="4 6"
 
@@ -19,7 +22,7 @@ if [ "$ACTION" = "ifup" ] && [ "$enable" = "1" ]; then
 
 	if [ "$net" != "" -a -n "$dev" ]; then
 		eval $(/bin/ipcalc.sh $net)
-		if [ "$PREFIX" != "0" -a "$NETWORK" != "127.0.0.0" ]; then
+		if [ "$PREFIX" != "0" ]; then
 			if [ ! "$(ip r s t localnets |grep "$NETWORK/$PREFIX dev")" ]; then
 				cmd="ip r a $NETWORK/$PREFIX dev $dev table localnets"
 				$cmd
