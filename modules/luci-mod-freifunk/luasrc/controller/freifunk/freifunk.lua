@@ -4,46 +4,7 @@
 module("luci.controller.freifunk.freifunk", package.seeall)
 
 function index()
-	local uci = require "luci.model.uci".cursor()
 	local page
-
-	-- Frontend
-	page          = node()
-	page.lock     = true
-	page.target   = alias("freifunk")
-	page.subindex = true
-	page.index    = false
-
-	page          = node("freifunk")
-	page.title    = _("Freifunk")
-	page.target   = alias("freifunk", "index")
-	page.order    = 5
-	page.setuser  = "nobody"
-	page.setgroup = "nogroup"
-	page.i18n     = "freifunk"
-	page.index    = true
-
-	page          = node("freifunk", "index")
-	page.target   = template("freifunk/index")
-	page.title    = _("Overview")
-	page.order    = 10
-	page.indexignore = true
-
-	page          = node("freifunk", "contact")
-	page.target   = template("freifunk/contact")
-	page.title    = _("Contact")
-	page.order    = 15
-
-	page          = node("freifunk", "status")
-	page.target   = template("freifunk/public_status")
-	page.title    = _("Status")
-	page.order    = 20
-	page.i18n     = "base"
-	page.setuser  = false
-	page.setgroup = false
-
-	entry({"freifunk", "status.json"}, call("jsonstatus"))
-	entry({"freifunk", "status", "zeroes"}, call("zeroes"), "Testdownload")
 
 	if nixio.fs.access("/usr/sbin/luci-splash") then
 		assign({"freifunk", "status", "splash"}, {"splash", "publicstatus"}, _("Splash"), 40)
@@ -59,39 +20,6 @@ function index()
 
 	-- backend
 	assign({"mini", "freifunk"}, {"admin", "freifunk"}, _("Freifunk"), 5)
-	entry({"admin", "freifunk"}, alias("admin", "freifunk", "index"), _("Freifunk"), 5)
-
-	page        = node("admin", "freifunk")
-	page.target = template("freifunk/adminindex")
-	page.title  = _("Freifunk")
-	page.order  = 5
-
-	page        = node("admin", "freifunk", "basics")
-	page.target = cbi("freifunk/basics")
-	page.title  = _("Basic Settings")
-	page.order  = 5
-
-	page        = node("admin", "freifunk", "basics", "profile")
-	page.target = cbi("freifunk/profile")
-	page.title  = _("Profile")
-	page.order  = 10
-
-	page        = node("admin", "freifunk", "basics", "profile_expert")
-	page.target = form("freifunk/profile_expert")
-	page.title  = _("Profile (Expert)")
-	page.order  = 20
-
-	page        = node("admin", "freifunk", "Index-Page")
-	page.target = cbi("freifunk/user_index")
-	page.title  = _("Index Page")
-	page.order  = 50
-
-	page        = node("admin", "freifunk", "contact")
-	page.target = cbi("freifunk/contact")
-	page.title  = _("Contact")
-	page.order  = 15
-
-	entry({"admin", "freifunk", "profile_error"}, template("freifunk/profile_error"))
 end
 
 function zeroes()
