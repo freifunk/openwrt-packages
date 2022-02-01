@@ -1,0 +1,74 @@
+{
+	"admin/freifunk": {
+		"title": "Freifunk",
+		"order": 5,
+        "depends": {
+            "acl" : ["luci-mod-freifunk"]
+        },
+		"action": {
+			"type": "firstchild",
+			"recurse": true
+		}
+	},
+	"admin/freifunk/adminindex": {
+		"title": "Overview",
+		"order": 5,
+		"action": {
+			"type": "view",
+			"path": "freifunk/admin/index"
+		}
+	},
+	"admin/freifunk/basics": {
+		"title": "Basic Settings",
+		"order": 10,
+		"action": {
+			"type": "firstchild"
+		}
+	},
+	"admin/freifunk/basics/settings": {
+		"title": "Basic Settings",
+		"order": 12,
+		"action": {
+			"type": "view",
+			"path": "freifunk/admin/basics"
+		}
+	},
+	"admin/freifunk/basics/profile": {
+		"title": "Profile",
+		"order": 15,
+		"action": {
+			"type": "view",
+			"path": "freifunk/admin/profile"
+		}
+	},
+	"admin/freifunk/basics/profile_expert": {
+		"title": "Profile (Expert)",
+		"order": 20,
+		"action": {
+			"type": "view",
+			"path": "freifunk/admin/profile_expert"
+		}
+	},
+	"admin/freifunk/profile_error": {
+		"action": {
+			"type": "view",
+			"path": "freifunk/admin/profile_error"
+		}
+	},
+	"admin/freifunk/contact": {
+		"title": "Contact",
+		"order": 15,
+		"action": {
+			"type": "view",
+			"path": "freifunk/admin/contact"
+		}
+	},
+	"admin/freifunk/Index-Page": {
+		"title": "Index Page",
+		"order": 50,
+		"action": {
+			"type": "view",
+			"path": "freifunk/admin/user_index"
+		}
+	}
+}

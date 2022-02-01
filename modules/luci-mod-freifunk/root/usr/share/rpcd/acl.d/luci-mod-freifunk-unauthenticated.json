@@ -1,0 +1,35 @@
+{
+    "unauthenticated": {
+        "description": "Grant read access to config files",
+        "read": {
+            "ubus": {
+                "uci": [
+                    "get"
+                ],
+                "luci-rpc": [
+                    "*"
+                ],
+                "system": [
+                    "info", "board"
+                ],
+                "file": [
+                    "read"
+                ],
+		"ffmap": [
+		    "getdata"
+		]
+            },
+            "uci": [
+                "freifunk",
+                "network",
+                "olsrd",
+                "profile_*",
+                "system",
+                "wireless"
+            ],
+            "file" : {
+				"/www/luci-static/index_user.html": ["read"]
+			}
+        }
+    }
+}
