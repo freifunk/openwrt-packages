@@ -95,8 +95,13 @@ uci:foreach("system", "system", function(s)
 end)
 
 local owm_api = uci:get("freifunk", "community", "owm_api") or "http://api.openwifimap.net/"
-local cname = uci:get("freifunk", "community", "name") or "freifunk"
-local suffix = uci:get("freifunk", "community", "suffix") or uci:get("profile_" .. cname, "profile", "suffix") or "olsr"
+local cname = uci:get("freifunk", "community", "name") or
+              uci:get("owm", "owm", "community") or
+              "freifunk"
+local suffix = uci:get("freifunk", "community", "suffix") or
+               uci:get("profile_" .. cname, "profile", "suffix") or
+               uci:get("owm", "owm", "suffix") or
+               "olsr"
 local body = json.encode(owm.get())
 
 if arg[1]=="--dry-run" then
