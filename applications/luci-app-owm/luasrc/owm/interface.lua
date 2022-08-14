@@ -1,16 +1,5 @@
 --[[
-LuCI - Lua Configuration Interface
-
-Copyright 2013 Patrick Grimm <patrick@lunatiki.de>
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-$Id$
-
+OWM-Client extension to support (wireless-)interfaces
 ]]--
 
 local bus = require "ubus"
@@ -129,7 +118,6 @@ function get()
 		end
 	end)
 
-	root.interfaces = {} --owm
 	uci:foreach("network", "interface",function(vif)
 		if 'lo' == vif.ifname then
 			return
@@ -141,59 +129,59 @@ function get()
 		end
 		local net = netm:get_network(name)
 		local device = net and net:get_interface()
-		root.interfaces[#root.interfaces+1] =  vif
-		root.interfaces[#root.interfaces].name = name --owm
-		root.interfaces[#root.interfaces].ifname = vif.ifname --owm
-		root.interfaces[#root.interfaces].ipv4Addresses = {vif.ipaddr} --owm
+		root[#root +1] =  vif
+		root[#root].name = name --owm
+		root[#root].ifname = vif.ifname --owm
+		root[#root].ipv4Addresses = {vif.ipaddr} --owm
 		local ipv6Addresses = {}
 		if device and device:ip6addrs() then
 			for _, a in ipairs(device:ip6addrs()) do
 				table.insert(ipv6Addresses, a:string())
 			end
 		end
-		root.interfaces[#root.interfaces].ipv6Addresses = ipv6Addresses --owm
-		root.interfaces[#root.interfaces].physicalType = 'ethernet' --owm
-		root.interfaces[#root.interfaces]['.name'] = nil
-		root.interfaces[#root.interfaces]['.anonymous'] = nil
-		root.interfaces[#root.interfaces]['.type'] = nil
-		root.interfaces[#root.interfaces]['.index'] = nil
-		root.interfaces[#root.interfaces]['username'] = nil
-		root.interfaces[#root.interfaces]['password'] = nil
-		root.interfaces[#root.interfaces]['password'] = nil
-		root.interfaces[#root.interfaces]['clientid'] = nil
-		root.interfaces[#root.interfaces]['reqopts'] = nil
-		root.interfaces[#root.interfaces]['pincode'] = nil
-		root.interfaces[#root.interfaces]['tunnelid'] = nil
-		root.interfaces[#root.interfaces]['tunnel_id'] = nil
-		root.interfaces[#root.interfaces]['peer_tunnel_id'] = nil
-		root.interfaces[#root.interfaces]['session_id'] = nil
-		root.interfaces[#root.interfaces]['peer_session_id'] = nil
+		root[#root].ipv6Addresses = ipv6Addresses --owm
+		root[#root].physicalType = 'ethernet' --owm
+		root[#root]['.name'] = nil
+		root[#root]['.anonymous'] = nil
+		root[#root]['.type'] = nil
+		root[#root]['.index'] = nil
+		root[#root]['username'] = nil
+		root[#root]['password'] = nil
+		root[#root]['password'] = nil
+		root[#root]['clientid'] = nil
+		root[#root]['reqopts'] = nil
+		root[#root]['pincode'] = nil
+		root[#root]['tunnelid'] = nil
+		root[#root]['tunnel_id'] = nil
+		root[#root]['peer_tunnel_id'] = nil
+		root[#root]['session_id'] = nil
+		root[#root]['peer_session_id'] = nil
 		if vif.macaddr then
-			root.interfaces[#root.interfaces]['macaddr'] = showmac(vif.macaddr)
+			root[#root]['macaddr'] = showmac(vif.macaddr)
 		end
 
 		local wireless_add = {}
 		for _, interface in ipairs(interfaces) do
 			if interface['network'] == name then
-				root.interfaces[#root.interfaces].physicalType = 'wifi' --owm
-				root.interfaces[#root.interfaces].mode = interface.mode
-				root.interfaces[#root.interfaces].encryption = interface.encryption
-				root.interfaces[#root.interfaces].access = 'free'
-				root.interfaces[#root.interfaces].accessNote = "everyone is welcome!"
-				root.interfaces[#root.interfaces].channel = interface.wirelessdevice.channel
-				root.interfaces[#root.interfaces].txpower = interface.wirelessdevice.txpower
-				root.interfaces[#root.interfaces].bssid = interface.bssid
-				root.interfaces[#root.interfaces].ssid = interface.ssid
-				root.interfaces[#root.interfaces].antenna = interface.wirelessdevice.antenna
+				root[#root].physicalType = 'wifi' --owm
+				root[#root].mode = interface.mode
+				root[#root].encryption = interface.encryption
+				root[#root].access = 'free'
+				root[#root].accessNote = "everyone is welcome!"
+				root[#root].channel = interface.wirelessdevice.channel
+				root[#root].txpower = interface.wirelessdevice.txpower
+				root[#root].bssid = interface.bssid
+				root[#root].ssid = interface.ssid
+				root[#root].antenna = interface.wirelessdevice.antenna
 				wireless_add[#wireless_add+1] = interface --owm
 			end
 		end
-		root.interfaces[#root.interfaces].wifi = wireless_add
+		root[#root].wifi = wireless_add
 	end)
 
 	local arptable = ip.neighbors() or {}
-	if #root.interfaces ~= 0 then
-		for idx,iface in ipairs(root.interfaces) do
+	if #root ~= 0 then
+		for idx,iface in ipairs(root) do
 			local neigh_mac = {}
 			for _, arpt in ipairs(arptable) do
 				local mac = showmac(tostring(arpt['mac']):lower())
@@ -251,7 +239,7 @@ function get()
 					end
 				end
 			end
-			root.interfaces[idx].neighbors = neigh_mac
+			root[idx].neighbors = neigh_mac
 		end
 	end
 
