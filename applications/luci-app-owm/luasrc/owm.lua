@@ -23,7 +23,6 @@ local netm = require "luci.model.network"
 local sysinfo = luci.util.ubus("system", "info") or { }
 local boardinfo = luci.util.ubus("system", "board") or { }
 local table = require "table"
-local nixio = require "nixio"
 local ip = require "luci.ip"
 
 local ipairs, pairs, tonumber, tostring = ipairs, pairs, tonumber, tostring
@@ -40,16 +39,8 @@ module "luci.owm"
 -- @return	String containing hardware model information
 --        	(trimmed to router-model only)
 function sysinfo_for_kathleen020()
-	local cpuinfo = nixio.fs.readfile("/proc/cpuinfo")
-
 	local system = 'system is deprecated'
-
-	local model =
-		boardinfo['model'] or
-		cpuinfo:match("machine\t+: ([^\n]+)") or
-		cpuinfo:match("Hardware\t+: ([^\n]+)") or
-		nixio.uname().machine or
-		system
+	local model = boardinfo['model']
 
         return system, model
 end
