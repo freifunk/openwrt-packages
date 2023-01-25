@@ -11,9 +11,8 @@ LUCI_DEPENDS:= \
 	+iptables-mod-nat-extra +iptables-mod-ipopt +luci-app-splash \
 	+olsrd +olsrd-mod-dyn-gw-plain +olsrd-mod-jsoninfo +olsrd-mod-nameservice \
 	+olsrd-mod-watchdog +kmod-tun +ip +freifunk-watchdog +luci-app-olsr \
-	+luci-app-olsr-services +freifunk-gwcheck +freifunk-mapupdate
-
+	+luci-app-olsr-services +freifunk-gwcheck
+	
 include ../../freifunk.mk
 
 # call BuildPackage - OpenWrt buildroot signature
-
