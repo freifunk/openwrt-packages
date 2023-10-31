@@ -70,5 +70,13 @@
 			"type": "view",
 			"path": "freifunk/admin/user_index"
 		}
+	},
+	"mini/freifunk": {
+		"title": "Freifunk",
+		"order": 5,
+		"action": {
+			"type": "alias",
+			"path": "admin/freifunk"
+		}
 	}
 }

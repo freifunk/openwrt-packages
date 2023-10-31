@@ -1,41 +1,40 @@
-#!/usr/bin/lua
+#!/bin/sh
 
-require "os"
-require "io"
-require "uci"
-local fs = require "nixio.fs"
+. /lib/functions.sh
+. /usr/share/libubox/jshn.sh
 
-if fs.access("/var/run/olsrd.pid") or fs.access("/var/run/olsrd4.pid") then
-	local stamp, intv
-	local x = uci.cursor()
+log() {
+        logger -s -t olsrwatchdog "$@"
+}
 
-	x:foreach("olsrd", "LoadPlugin",
-		function(s)
-			if s.library == "olsrd_watchdog" then
-				if s.ignore == "1" then
-					do return end
-				end
-				intv  = tonumber(s.interval)
-				stamp = s.file
-			end
-		end)
+[ -f "/var/run/olsrd.pid" -o -f "/var/run/olsrd6.pid" ] || {
+	log "olsrd not running"
+	return
+}
 
-	if intv and fs.access(stamp) then
-		local systime = os.time()
-		local wdgtime = tonumber(io.lines(stamp)() or nil)
+run_watchdog() {
+	local cfg="$1"
+	config_get library "$cfg" library
+	case "$library" in
+		*watchdog* )
+			config_get ignore "$cfg" ignore
+			[ "$ignore" -eq "1" ] && {
+				return
+			}
+			config_get interval "$cfg" interval
+			config_get file "$cfg" file
+			local last_olsr_stamp="$(cat $file)"
+			local current_timestamp="$(date +'%s')"
+			local diff=$(( $current_timestamp - $last_olsr_stamp ))
+			if [ -z "$last_olsr_stamp" ] || [ "$diff" -ge "$(( $interval * 2 ))" ]; then
+				log "OLSRd process died - restarting!"
+			fi
+		;;
+		*)
+			return
+		;;
+	esac
+}
+config_load olsrd
+config_foreach run_watchdog LoadPlugin
 
-		if not wdgtime or ( systime - wdgtime ) > ( intv * 2 ) then
-			os.execute("logger -t 'OLSR watchdog' 'Process died - restarting!'")
-			local tnls = io.popen("ip tunnel show | cut -d : -f 1")
-			while true do
-				tnl = tnls:read("*line")
-				if tnl == nil then break end
-				if string.find(tnl, "tnl_") == 1 then
-					os.execute(string.format("logger -t 'OLSR watchdog' 'Deleting stale tunnel %s'", tnl))
-					os.execute(string.format("ip link del %s", tnl))
-				end
-			end
-			os.execute("/etc/init.d/olsrd restart")
-		end
-	end
-end

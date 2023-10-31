@@ -30,7 +30,7 @@ return view.extend({
             _('and fill out all required fields.'),
             E('p')
         ]): E([]);
-        let contactWarning = (nickname == null && name == null && email == null)? E('div', {'class': 'label warning'}, [
+        let contactWarning = (nickname == null && name == null && mail == null)? E('div', {'class': 'label warning'}, [
             _('Contact information is incomplete. Please go to'),
             ' ',
             E('a', {'href': contacturl}, _('Contact')),

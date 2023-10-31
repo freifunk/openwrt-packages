@@ -31,7 +31,7 @@ define Package/freifunk-common-olsr
   CATEGORY:=LuCI
   SUBMENU:=9. Freifunk
   TITLE:=Freifunk common files for olsr-v1
-  DEPENDS:=freifunk-common +olsrd +micrond +libuci-lua
+  DEPENDS:=freifunk-common +olsrd +micrond
 endef
 
 define Package/freifunk-common-olsr/description

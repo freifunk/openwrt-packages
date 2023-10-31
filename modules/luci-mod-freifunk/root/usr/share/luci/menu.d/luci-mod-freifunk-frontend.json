@@ -31,13 +31,6 @@
       "path": "freifunk/frontend/contact"
     }
   },
-  "freifunk/status.json": {
-    "action": {
-      "type": "call",
-      "module": "luci.controller.freifunk.freifunk",
-      "function": "jsonstatus"
-    }
-  },
   "freifunk/status": {
     "title": "Status",
     "order": 20,
@@ -53,12 +46,29 @@
       "path": "freifunk/frontend/public_status"
     }
   },
-  "freifunk/status/zeroes": {
-    "title": "Testdownload",
+  "freifunk/status/splash": {
+    "title": "Splash",
     "action": {
-      "type": "call",
-      "module": "luci.controller.freifunk.freifunk",
-      "function": "zeroes"
+      "type": "alias",
+      "path": "splash/publicstatus"
+    },
+    "depends": {
+      "fs": [
+          { "/usr/sbin/luci-splash": "executable" }
+        ]
+    }
+  },
+  "freifunk/graph": {
+    "title": "Statistics",
+    "order": 30,
+    "action": {
+      "type": "alias",
+      "path": "admin/statistics/graph"
+    },
+    "depends": {
+      "fs": [
+          { "/etc/config/luci_statistics": "file" }
+        ]
     }
   },
   "freifunk/map": {
